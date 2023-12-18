@@ -6,8 +6,8 @@ function Autenticacion(){
     return(
         <div>
             <Header />
+            <main className='overflow-auto'>
             {/* Contenido principal de tu página de inicio */}
-            <main>
            <Register />
             </main>
             <Footer />

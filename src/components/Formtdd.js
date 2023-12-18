@@ -1,40 +1,60 @@
 import React, { useState } from 'react';
 import { useTheme } from 'next-themes';
 import { Button } from '@nextui-org/react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Formulario() {
-  const [numero, setNumero] = useState('');
-  const [texto, setTexto] = useState('');
-  const [opcion, setOpcion] = useState('');
-  const { theme } = useTheme(); // Obtener el tema activo
+  const [datos, setDatos] = useState({
+    numero: '',
+    texto: '',
+    opcion: '',
+  });
+  const { theme } = useTheme();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  axios.defaults.xsrfCookieName = 'csrftoken';
+  axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Realiza acciones con los valores ingresados
-    console.log('Número:', numero);
-    console.log('Texto:', texto);
-    console.log('Opción seleccionada:', opcion);
+    console.log(datos);
+    try {
+      const response = await axios.post('/tdd', datos, {
+        headers: {
+          //"X-CSRFToken": DjangoCSRFToken.csrftoken,
+        },
+      });
+      console.log(response.data);
+      navigate('/selectItems');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  // Clases CSS para ajustar el estilo según el tema
-  const containerClass = `container mx-auto mt-8 ${
-    theme === 'dark' ? 'dark' : '' // Agregar 'dark' si el tema es oscuro
+  const handleInputChange = (e, field) => {
+    const trimmedValue = e.target.value.trim();
+    setDatos({ ...datos, [field]: trimmedValue });
+  };
+
+  const containerClass = `container mx-auto mt-[18vh]  ${
+    theme === 'dark' ? 'dark' : ''
   }`;
 
-  const formClass = `max-w-md mx-auto bg-white p-4 rounded-lg shadow-md ${
-    theme === 'dark' ? 'dark:bg-[#222]' : '' // Cambiar el fondo si el tema es oscuro
+  const formClass = `max-w-md mx-auto p-4 rounded-lg shadow-md relative ${
+    theme === 'dark' ? 'dark:bg-[#222]' : ''
   }`;
 
   const labelClass = `block font-bold mb-2 ${
-    theme === 'dark' ? 'text-white' : 'text-gray-700' // Cambiar el color del texto según el tema
+    theme === 'dark' ? 'text-white' : 'text-gray-700'
   }`;
 
-  const inputClass = `w-full px-3 py-2 rounded-md  ${
+  const inputClass = `w-full px-3 py-2 rounded-md ${
     theme === 'dark' ? 'dark:bg-[#333] dark:text-white focus:ring-blue-500 focus:border-blue-500' : 'focus:ring-red-500 focus:border-purple-300'
   }`;
 
-  const buttonClass = `bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 ${
-    theme === 'dark' ? 'dark:bg-blue-700' : ''
+  const buttonClass = `bg-blue-500 text-white px-4 py-2 rounded-md transition-transform transform hover:scale-110 ${
+    theme === 'dark' ? 'dark:bg-blue-700' : 'bg-gradient-to-br from-red-400 to-red-700'
   }`;
 
   return (
@@ -45,14 +65,14 @@ function Formulario() {
             Número de Tarjeta:
           </label>
           <input
-            type="text" // Cambiamos el tipo a "text" para permitir la entrada de texto
+            type="text"
             id="numero"
             className={inputClass}
-            value={numero}
-            onChange={(e) => setNumero(e.target.value)}
-            inputMode="numeric" // Indicamos que se espera una entrada numérica
-            pattern="[0-9]*" // Establecemos un patrón que solo permite dígitos numéricos
-            maxLength={16} // Limitamos a un máximo de 16 dígitos
+            value={datos.numero}
+            onChange={(e) => handleInputChange(e, 'numero')}
+            inputMode="numeric"
+            pattern="[0-9]*"
+            maxLength={16}
           />
         </div>
         <div className="mb-4">
@@ -63,8 +83,8 @@ function Formulario() {
             type="text"
             id="texto"
             className={inputClass}
-            value={texto}
-            onChange={(e) => setTexto(e.target.value)}
+            value={datos.texto}
+            onChange={(e) => handleInputChange(e, 'texto')}
           />
         </div>
         <div className="mb-4">
@@ -74,8 +94,8 @@ function Formulario() {
           <select
             id="opcion"
             className={inputClass}
-            value={opcion}
-            onChange={(e) => setOpcion(e.target.value)}
+            value={datos.opcion}
+            onChange={(e) => handleInputChange(e, 'opcion')}
           >
             <option value="">Selecciona una opción</option>
             <option value="opcion1">Opción 1</option>

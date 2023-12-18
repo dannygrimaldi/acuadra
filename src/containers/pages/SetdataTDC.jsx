@@ -1,16 +1,21 @@
 import Header from '../../components/header';
 import Footer from '../../components/footer';
+import Formtdd from '../../components/Formtdd';
+import Layout from '../../hocs/layouts/Layout';
 
 function SetdataTDC(){
     return(
-        <div>
+        <div className="flex flex-col min-h-screen">
             <Header />
-            {/* Contenido principal de tu página de inicio */}
-            <main>
-SetdataTDC           
-            </main>
+            <Layout>
+                <main className="flex-grow">
+                   
+                        {/* Contenido principal de tu página de inicio */}
+                        <Formtdd/>
+                </main>
+            </Layout>
             <Footer />
-            </div>
+        </div>
     );
 }
 export default SetdataTDC;

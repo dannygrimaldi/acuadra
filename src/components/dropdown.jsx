@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from "@nextui-org/react";
 import { ThemeSwitcher } from '../components/ThemeSwitcher';
 import { UserIcon } from "./UserIcon";
+import { useTheme } from 'next-themes';
+
 
 export default function App() {
   const [selectedColor] = useState("default");
-
   const variants = ["light"];
+  const { theme } = useTheme();
+  const textColor = theme === 'dark' ? 'capitalize text-withe' : 'capitalize text-black';
 
   return (
     <div className="flex flex-wrap gap-4 dark">
@@ -16,9 +19,9 @@ export default function App() {
             <Button
               color={selectedColor}
               variant={variant}
-              className="capitalize"
+              className={textColor}
             ><UserIcon className="w-4 mr-1" />
-              44083564
+              45083732
             </Button>
           </DropdownTrigger>
           <DropdownMenu

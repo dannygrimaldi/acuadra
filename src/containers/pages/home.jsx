@@ -1,21 +1,22 @@
 import Header from '../../components/header';
 import Footer from '../../components/footer';
+import Layout from '../../hocs/layouts/Layout';
+import Buttons from '../../components/Menuhome';
+import '../../styles/index.css';
 
-function Home(){
+function Home() {
     return (
-        <div className='min-h-screen flex flex-col'>
+        <div className="flex flex-col min-h-screen">
             <Header />
-            {/* Contenido principal de tu página de inicio */}
-            <main className="flex-grow relative">
-                {/* <div className="bg-gradient-to-tr from-red-500 to-pink-500 blur opacity-1 absolute inset-0"></div> */}
-                <div className="relative max-w-7xl mx-auto z-10">
-                    Hola
-
-
-                    gol
-                </div>
-            </main>
-            <Footer className='mt-auto'/>
+            <Layout>
+                <main className="flex-grow overflow-auto dark">
+                        <Buttons/>
+                    <div className="relative max-w-7xl mx-auto z-10">
+                        {/* Contenido principal de tu página de inicio */}
+                    </div>
+                </main>
+            </Layout>
+            <Footer />
         </div>
     );
 }

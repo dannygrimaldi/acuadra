@@ -34,10 +34,13 @@ Django_APPS = [
 ]
 
 Third_apps = [
-    'corsheaders',
-    'rest_framework',
+
+
     'ckeditor',
-    'ckeditor_uploader'
+    'ckeditor_uploader',
+    'cuadre',
+    'rest_framework',
+    'corsheaders',
 ]
 INSTALLED_APPS = Django_APPS+Third_apps
 
@@ -63,9 +66,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
-ROOT_URLCONF = 'ACLARAAPP.urls'
+ROOT_URLCONF = 'ACUADRAAPP.urls'
 
 TEMPLATES = [
     {
@@ -83,7 +88,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'ACLARAAPP.wsgi.application'
+WSGI_APPLICATION = 'ACUADRAAPP.wsgi.application'
 
 
 # Database
@@ -146,12 +151,21 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly'
+        # 'rest_framework.permissions.IsAuthenticatedOrReadOnly'
+        'rest_framework.permissions.IsAuthenticated'
     ],
+    'DEFAULT_AUTHENTICATION_CLASSES':[
+        'rest_framework.authentication.SessionAuthentication'
+    ]
 }
 
 CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEV')
 CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEV')
+
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+
 
 EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
 

@@ -1,4 +1,6 @@
 import React from "react";
+import { useTheme } from 'next-themes';
+
 
 export const UserIcon = ({
   fill = 'currentColor',
@@ -9,6 +11,9 @@ export const UserIcon = ({
   label,
   ...props
 }) => {
+  const { theme } = useTheme();
+  const iconColor = theme === 'dark' ? 'currentColor' : '#000000';
+
   return (
     <svg
       data-name="Iconly/Curved/Profile"
@@ -17,10 +22,11 @@ export const UserIcon = ({
       width={size || width || 24}
       height={size || height || 24}
       {...props}
+      fill={iconColor} // Cambia el color del ícono según el tema
     >
       <g
         fill="none"
-        stroke={fill}
+        stroke={iconColor}
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeMiterlimit={10}

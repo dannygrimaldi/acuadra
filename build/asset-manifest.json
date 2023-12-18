@@ -1,14 +1,13 @@
 {
   "files": {
-    "main.css": "/static/css/main.1c182292.css",
-    "main.js": "/static/js/main.b42a16a8.js",
-    "static/media/logoHSBC.svg": "/static/media/logoHSBC.96d65f5dd5279a15a4658a3a325929f2.svg",
+    "main.css": "/static/css/main.0b503a58.css",
+    "main.js": "/static/js/main.c3403568.js",
     "index.html": "/index.html",
-    "main.1c182292.css.map": "/static/css/main.1c182292.css.map",
-    "main.b42a16a8.js.map": "/static/js/main.b42a16a8.js.map"
+    "main.0b503a58.css.map": "/static/css/main.0b503a58.css.map",
+    "main.c3403568.js.map": "/static/js/main.c3403568.js.map"
   },
   "entrypoints": [
-    "static/css/main.1c182292.css",
-    "static/js/main.b42a16a8.js"
+    "static/css/main.0b503a58.css",
+    "static/js/main.c3403568.js"
   ]
 }
