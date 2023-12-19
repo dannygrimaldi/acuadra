@@ -1,5 +1,7 @@
 import Header from '../../components/header';
 import Footer from '../../components/footer';
+//import FileReaderComponent from '../../components/FileReaderComponent';
+import PdfTextExtractor from '../../components/PdfTextExtractor'
 
 function Avisos(){
     return(
@@ -7,7 +9,7 @@ function Avisos(){
             <Header />
             {/* Contenido principal de tu página de inicio */}
             <main>
-Avisos           
+            < PdfTextExtractor/>
  </main>
             <Footer />
         </div>

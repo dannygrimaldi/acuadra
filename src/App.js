@@ -7,8 +7,9 @@ import Submit from "./containers/pages/Submit"
 import Autenticacion from "./containers/pages/Autenticacion";
 import SetdataTDC from "./containers/pages/SetdataTDC"
 import SetdataTDD from "./containers/pages/SetdataTDD"
- */
 
+ */
+import Loaderfiles from "./containers/pages/LoaderPDF";
 
 function App() {
   return (
@@ -20,7 +21,9 @@ function App() {
       <Route path="/register" element={<Register/>}/>
       <Route path="/set/tdc" element={<SetdataTDC/>}/>
       <Route path="/set/tdd" element={<SetdataTDD/>}/>
- */}      <Route path="/selectItems" element={<SelectItems/>}/>
+ */}   
+    <Route path="/Loader_files" element={<Loaderfiles/>}/>
+    <Route path="/selectItems" element={<SelectItems/>}/>
       <Route path="/sendRequest" element={<Submit/>}/>
       </Routes>
     </Router>
