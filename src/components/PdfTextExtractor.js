@@ -5,8 +5,23 @@ import 'pdfjs-dist/build/pdf.worker.min';
 const PdfTextExtractor = () => {
   const fileInputRef = useRef(null);
   const [textContents, setTextContents] = useState([]);
+  const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const extractTransactions = (text) => {
+    const patron =  /(\d{2} [A-Z]{3})\s(.+?)\s(\d+\.\d{2})/g;
+    /* /(\d{2} [A-Z]{3})\s*([\s\S]+?)\s*([\d.]+)/g; */
+    const transactions = [];
+    let matches;
+    while ((matches = patron.exec(text)) !== null) {
+      const fecha = matches[1];
+      const concepto = matches[2];
+      const importe = matches[3];
+      transactions.push({ fecha, concepto, importe });
+    }
+    return transactions;
+  };
 
   const handleFileChange = async () => {
     try {
@@ -67,6 +82,14 @@ const PdfTextExtractor = () => {
         .then((allTextContents) => {
           // Almacena el contenido de texto en el estado
           setTextContents(allTextContents.flat());
+
+          // Extraer transacciones
+          const extractedTransactions = allTextContents.flat().map((textContent) => {
+            return extractTransactions(textContent.items.map((item) => item.str).join(' '));
+          }).flat();
+
+          // Almacena las transacciones en el estado
+          setTransactions(extractedTransactions);
         })
         .catch((error) => {
           console.error('Error al extraer contenido de texto de las páginas:', error);
@@ -97,6 +120,18 @@ const PdfTextExtractor = () => {
             <div key={index}>
               <strong>Página {index + 1}:</strong>
               <p>{textContent.items.map((item) => item.str).join(' ')}</p>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Mostrar la lista de transacciones */}
+      {transactions.length > 0 && (
+        <div>
+          <h3>Transacciones:</h3>
+          {transactions.map((transaction, index) => (
+            <div key={index}>
+              <strong>Fecha:</strong> {transaction.fecha}, <strong>Concepto:</strong> {transaction.concepto}, <strong>Importe:</strong> {transaction.importe}
             </div>
           ))}
         </div>
