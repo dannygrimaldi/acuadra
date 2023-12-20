@@ -3,6 +3,7 @@ import { useTheme } from 'next-themes';
 import Logo from './Logo';
 import React, { useEffect, useState } from 'react';
 import '../styles/index.css';
+import TypingTitle from './TypingTitle';  // Asegúrate de importar TypingTitle
 
 
 
@@ -45,7 +46,7 @@ function Header() {
       <div className="text-2xl font-bold">
       <Logo />
       </div>
-      <div className={`text-2xl font-bold ${theme === 'dark' ? '' : 'text-black'}`}>AcuadraApp</div>
+      <div className={`text-2xl font-bold ${theme === 'dark' ? '' : 'text-black'}`}><TypingTitle /></div>
       <div className="relative inline-block text-left">
         <Dropdown />
       </div>
