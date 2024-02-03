@@ -1,15 +1,15 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Error404 from './containers/errors/error404';
 import Home from './containers/pages/home';
-import SelectItems from "./containers/pages/SelectItems"
-import Submit from "./containers/pages/Submit"
 /* import Register from './containers/pages/Registro';
 import Autenticacion from "./containers/pages/Autenticacion";
+import SelectItems from "./containers/pages/SelectItems"
+import Submit from "./containers/pages/Submit"
 import SetdataTDC from "./containers/pages/SetdataTDC"
 import SetdataTDD from "./containers/pages/SetdataTDD"
 
- */
 import Loaderfiles from "./containers/pages/LoaderPDF";
+*/
+import Error404 from './containers/errors/error404';
 
 function App() {
   return (
