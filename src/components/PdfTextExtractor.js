@@ -10,8 +10,7 @@ const PdfTextExtractor = () => {
   const [error, setError] = useState(null);
 
   const extractTransactions = (text) => {
-    const patron =  /(\d{2} [A-Z]{3})\s(.+?)\s([-]?\d+\.\d{2})/g;
-    /* /(\d{2} [A-Z]{3})\s(.+?)\s(\d+\.\d{2})/g; */
+    const patron =  /(\d{2} [A-Z]{3})\s(.+?)\s(\d+\.\d{2})/g;
     /* /(\d{2} [A-Z]{3})\s*([\s\S]+?)\s*([\d.]+)/g; */
     const transactions = [];
     let matches;
