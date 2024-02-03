@@ -21,7 +21,7 @@ export default function App() {
               variant={variant}
               className={textColor}
             ><UserIcon className="w-4 mr-1" />
-              Daniel
+              45083732
             </Button>
           </DropdownTrigger>
           <DropdownMenu
