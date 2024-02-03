@@ -10,10 +10,10 @@ const TypingTitle = () => {
       .typeString('App')
       .pauseFor(1000)
       .deleteAll()
-      .typeString('cuadra')
+      .typeString('Web')
       .pauseFor(1000)
       .deleteAll()
-      .typeString('Cuadra App')
+      .typeString('Chat')
       .start()
   };
   const handleComplete = () => {

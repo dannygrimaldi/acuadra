@@ -21,10 +21,11 @@ function App() {
       <Route path="/register" element={<Register/>}/>
       <Route path="/set/tdc" element={<SetdataTDC/>}/>
       <Route path="/set/tdd" element={<SetdataTDD/>}/>
- */}   
-    <Route path="/Loader_files" element={<Loaderfiles/>}/>
+      <Route path="/Loader_files" element={<Loaderfiles/>}/>
     <Route path="/selectItems" element={<SelectItems/>}/>
       <Route path="/sendRequest" element={<Submit/>}/>
+ */}   
+    
       </Routes>
     </Router>
   );
