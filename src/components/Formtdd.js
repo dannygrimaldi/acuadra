@@ -37,29 +37,37 @@ function Formulario() {
     setDatos({ ...datos, [field]: trimmedValue });
   };
 
-  const containerClass = `container mx-auto mt-[18vh]  ${
-    theme === 'dark' ? 'dark' : ''
-  }`;
+  const containerClass = `${theme === 'dark' ? 'dark' : ''}`;
 
   const formClass = `max-w-md mx-auto p-4 rounded-lg shadow-md relative ${
     theme === 'dark' ? 'dark:bg-[#222]' : ''
   }`;
 
-  const labelClass = `block font-bold mb-2 ${
-    theme === 'dark' ? 'text-white' : 'text-gray-700'
-  }`;
+  // 🔑 CAMBIO: Aplicamos text-sm a las etiquetas
+  const labelClass = `block font-bold mb-2 text-sm ${theme === 'dark' ? 'text-white' : 'text-gray-700'}`;
 
-  const inputClass = `w-full px-3 py-2 rounded-md ${
+
+  // 🔑 CAMBIO: Aplicamos text-sm a los campos de entrada/selección
+  const inputClass = `w-full px-3 py-2 rounded-md **text-sm** ${
     theme === 'dark' ? 'dark:bg-[#333] dark:text-white focus:ring-blue-500 focus:border-blue-500' : 'focus:ring-red-500 focus:border-purple-300'
   }`;
 
-  const buttonClass = `bg-blue-500 text-white px-4 py-2 rounded-md transition-transform transform hover:scale-110 ${
+  // 🔑 CAMBIO: Aplicamos text-sm al botón
+  const buttonClass = `bg-blue-500 text-white px-4 py-2 rounded-md transition-transform transform hover:scale-110 **text-sm** ${
     theme === 'dark' ? 'dark:bg-blue-700' : 'bg-gradient-to-br from-red-400 to-red-700'
   }`;
 
   return (
     <div className={containerClass}>
       <form onSubmit={handleSubmit} className={formClass}>
+        
+        {/* 🔑 NUEVO: Título del formulario */}
+        <div className="text-center mb-6">
+          <h2 className={`**text-xl** font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+            Iniciar nueva Aclaracion
+          </h2>
+        </div>
+
         <div className="mb-4">
           <label htmlFor="numero" className={labelClass}>
             Número de Tarjeta:
@@ -87,7 +95,7 @@ function Formulario() {
             onChange={(e) => handleInputChange(e, 'texto')}
           />
         </div>
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label htmlFor="opcion" className={labelClass}>
             Seleccionar:
           </label>
@@ -101,10 +109,12 @@ function Formulario() {
             <option value="opcion1">Opción 1</option>
             <option value="opcion2">Opción 2</option>
             <option value="opcion3">Opción 3</option>
-          </select>
-        </div>
-        <div className="text-center">
-          <Button type="submit" className={buttonClass}>
+          </select> 
+        </div> */}
+        
+        {/* 🔑 CAMBIO: Contenedor con text-center para centrar el botón */}
+        <div className="text-center mt-6">
+          <Button type="submit" fullWidth className={buttonClass}>
             Enviar
           </Button>
         </div>
