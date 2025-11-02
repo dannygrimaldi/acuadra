@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTheme } from 'next-themes';
-import { Button } from '@nextui-org/react';
+import { Card, CardHeader, CardBody, Button } from '@nextui-org/react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,6 +10,7 @@ function Formulario() {
     texto: '',
     opcion: '',
   });
+
   const { theme } = useTheme();
   const navigate = useNavigate();
 
@@ -18,13 +19,8 @@ function Formulario() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(datos);
     try {
-      const response = await axios.post('/tdd', datos, {
-        headers: {
-          //"X-CSRFToken": DjangoCSRFToken.csrftoken,
-        },
-      });
+      const response = await axios.post('/tdd', datos);
       console.log(response.data);
       navigate('/selectItems');
     } catch (error) {
@@ -33,93 +29,88 @@ function Formulario() {
   };
 
   const handleInputChange = (e, field) => {
-    const trimmedValue = e.target.value.trim();
-    setDatos({ ...datos, [field]: trimmedValue });
+    setDatos({ ...datos, [field]: e.target.value.trim() });
   };
 
-  const containerClass = `${theme === 'dark' ? 'dark' : ''}`;
+  const isDark = theme === 'dark';
 
-  const formClass = `max-w-md mx-auto p-4 rounded-lg shadow-md relative ${
-    theme === 'dark' ? 'dark:bg-[#222]' : ''
-  }`;
+  const inputClass = `
+    w-full px-3 py-2 rounded-md text-base
+    focus:outline-none focus:ring-2
+    ${theme === 'dark'
+      ? 'bg-[#333] text-white focus:ring-blue-500 focus:border-blue-500'
+      : 'bg-white text-gray-800 focus:ring-red-500 focus:border-red-400'}
+  `;
 
-  // 🔑 CAMBIO: Aplicamos text-sm a las etiquetas
-  const labelClass = `block font-bold mb-2 text-sm ${theme === 'dark' ? 'text-white' : 'text-gray-700'}`;
+  const labelClass = `
+    block font-semibold mb-2 text-base
+    ${theme === 'dark' ? 'text-gray-100' : 'text-gray-800'}
+  `;
 
-
-  // 🔑 CAMBIO: Aplicamos text-sm a los campos de entrada/selección
-  const inputClass = `w-full px-3 py-2 rounded-md **text-sm** ${
-    theme === 'dark' ? 'dark:bg-[#333] dark:text-white focus:ring-blue-500 focus:border-blue-500' : 'focus:ring-red-500 focus:border-purple-300'
-  }`;
-
-  // 🔑 CAMBIO: Aplicamos text-sm al botón
-  const buttonClass = `bg-blue-500 text-white px-4 py-2 rounded-md transition-transform transform hover:scale-110 **text-sm** ${
-    theme === 'dark' ? 'dark:bg-blue-700' : 'bg-gradient-to-br from-red-400 to-red-700'
-  }`;
+  const buttonClass = `
+    w-full mt-4 text-base px-4 py-2 font-medium rounded-lg
+    transition-transform transform hover:scale-105
+    ${theme === 'dark'
+      ? 'bg-blue-700 text-white hover:bg-blue-600'
+      : 'bg-gradient-to-br from-red-400 to-red-700 text-white'}
+  `;
 
   return (
-    <div className={containerClass}>
-      <form onSubmit={handleSubmit} className={formClass}>
-        
-        {/* 🔑 NUEVO: Título del formulario */}
-        <div className="text-center mb-6">
-          <h2 className={`**text-xl** font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-            Iniciar nueva Aclaracion
-          </h2>
-        </div>
+      <Card className={`w-full w-[500px] p-4 shadow-md rounded-lg ${theme === 'dark' ? 'bg-[#222]' : 'bg-white'}`}>
+                <CardHeader className="flex-col justify-center mb-2">
+                  
+                  <h2 className={`text-[20px] font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+            Nueva Solicitud
+</h2>
+<h3
+  className={`text-[16px] whitespace-nowrap ${
+    isDark ? 'text-white' : 'text-gray-900'
+  }`}
+>Inicia una nueva aclaración de cargos no reconocidos</h3>
 
-        <div className="mb-4">
-          <label htmlFor="numero" className={labelClass}>
-            Número de Tarjeta:
-          </label>
-          <input
-            type="text"
-            id="numero"
-            className={inputClass}
-            value={datos.numero}
-            onChange={(e) => handleInputChange(e, 'numero')}
-            inputMode="numeric"
-            pattern="[0-9]*"
-            maxLength={16}
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="texto" className={labelClass}>
-            SFE:
-          </label>
-          <input
-            type="text"
-            id="texto"
-            className={inputClass}
-            value={datos.texto}
-            onChange={(e) => handleInputChange(e, 'texto')}
-          />
-        </div>
-        {/* <div className="mb-4">
-          <label htmlFor="opcion" className={labelClass}>
-            Seleccionar:
-          </label>
-          <select
-            id="opcion"
-            className={inputClass}
-            value={datos.opcion}
-            onChange={(e) => handleInputChange(e, 'opcion')}
-          >
-            <option value="">Selecciona una opción</option>
-            <option value="opcion1">Opción 1</option>
-            <option value="opcion2">Opción 2</option>
-            <option value="opcion3">Opción 3</option>
-          </select> 
-        </div> */}
+                </CardHeader>
         
-        {/* 🔑 CAMBIO: Contenedor con text-center para centrar el botón */}
-        <div className="text-center mt-6">
-          <Button type="submit" fullWidth className={buttonClass}>
-            Enviar
-          </Button>
-        </div>
-      </form>
-    </div>
+        <CardBody>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <label htmlFor="numero" className={labelClass}>
+                Número de Tarjeta:
+              </label>
+              <input
+                type="text"
+                id="numero"
+                className={inputClass}
+                value={datos.numero}
+                onChange={(e) => handleInputChange(e, 'numero')}
+                inputMode="numeric"
+                pattern="[0-9]*"
+                maxLength={16}
+                placeholder="Ej. 1234567890123456"
+              />
+            </div>
+
+            <div className="mb-4">
+              <label htmlFor="texto" className={labelClass}>
+                SFE:
+              </label>
+              <input
+                type="text"
+                id="texto"
+                className={inputClass}
+                value={datos.texto}
+                onChange={(e) => handleInputChange(e, 'texto')}
+                placeholder="Ej. Código de aclaración"
+              />
+            </div>
+                        <div className="text-center mt-6">
+
+            <Button type="submit" className={buttonClass}>
+              Enviar
+            </Button>
+            </div>
+          </form>
+        </CardBody>
+      </Card>
   );
 }
 
