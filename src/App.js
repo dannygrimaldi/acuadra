@@ -8,6 +8,7 @@ import Autenticacion from "./containers/pages/Autenticacion";
 import SetdataTDC from "./containers/pages/SetdataTDC"
 import SetdataTDD from "./containers/pages/SetdataTDD"
 import Loaderfiles from "./containers/pages/LoaderPDF";
+import Historial from "./containers/pages/historial-aclaraciones"
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Routes>
       <Route path="*" element={<Error404/>}/>
       <Route path="/" element={<Home/>}/>
+      <Route path="/historial" element={<Historial/>}/>
       <Route path="/login" element={<Autenticacion/>}/>
       <Route path="/register" element={<Register/>}/>
       <Route path="/set/tdc" element={<SetdataTDC/>}/>

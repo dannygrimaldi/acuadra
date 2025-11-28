@@ -18,7 +18,7 @@ function Header() {
  useEffect(() => {
   const handleScroll = () => {
     const scrollPosition = window.scrollY;
-    const maxScroll = 300; // Ajusta este valor según tus preferencias
+    const maxScroll = 0; // Ajusta este valor según tus preferencias
     const opacityValue = 1 - (scrollPosition / maxScroll);
 
     setOpacity(opacityValue > 0 ? opacityValue : 0);
@@ -45,7 +45,7 @@ function Header() {
       <div className="text-2xl font-bold">
       <Logo />
       </div>
-      <div className={`text-2xl font-bold ${theme === 'dark' ? '' : 'text-black'}`}>AcuadraApp</div>
+      <div className={`text-2xl font-bold ${theme === 'dark' ? '' : 'text-black'}`}>AclaraApp</div>
       <div className="relative inline-block text-left">
         <Dropdown />
       </div>

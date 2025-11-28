@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useTheme } from 'next-themes';
 import { Card, CardHeader, CardBody, Button } from '@nextui-org/react';
+import axios from 'axios';
 
 const BuscarAclaraciones = () => {
   const [formData, setFormData] = useState({
@@ -20,7 +21,8 @@ const BuscarAclaraciones = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Datos del formulario:', formData);
+    console.log('Datos del formulario:', formData);// madalos al servidos 
+    
   };
 
   const isDark = theme === 'dark';
