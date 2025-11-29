@@ -11,10 +11,30 @@ const Login = ({ error, message }) => {
     password: ''
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Datos de login:', formData);
-  };
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const res = await fetch("http://localhost:8080/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include", // ← IMPORTANTE
+      body: JSON.stringify(formData)
+    });
+
+    if (!res.ok) throw new Error("Credenciales inválidas");
+
+    const data = await res.json();
+    console.log("Usuario autenticado:", data);
+
+    window.location.href = "/dashboard";
+
+  } catch (err) {
+    console.error(err);
+    alert("Usuario o contraseña incorrectos");
+  }
+};
+
 
   const handleChange = (e) => {
     setFormData({
