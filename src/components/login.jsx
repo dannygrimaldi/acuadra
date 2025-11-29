@@ -1,46 +1,45 @@
 import { useTheme } from 'next-themes';
 import React, { useState } from 'react';
 import { Card, CardHeader, CardBody, Button } from '@nextui-org/react';
-
-const Login = ({ error, message }) => {
-  const { theme } = useTheme();
-  const isDark = theme === 'dark';
-
-  const [formData, setFormData] = useState({
-    username: '',
-    password: ''
-  });
-
-const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  try {
-    const res = await fetch("http://localhost:8080/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include", // ← IMPORTANTE
-      body: JSON.stringify(formData)
-    });
-
-    if (!res.ok) throw new Error("Credenciales inválidas");
-
-    const data = await res.json();
-    console.log("Usuario autenticado:", data);
-
-    window.location.href = "/dashboard";
-
-  } catch (err) {
-    console.error(err);
-    alert("Usuario o contraseña incorrectos");
-  }
-};
+import axios from "axios";
 
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+export default function Login() {
+  const [form, setForm] = useState({ username: "", password: "" });
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const res = await fetch("http://localhost:8080/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form)
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(text || "Login failed");
+      }
+
+      const data = await res.json();
+      const token = data.token;
+      localStorage.setItem("token", token);
+
+      // configurar axios por defecto
+      axios.defaults.baseURL = "http://localhost:8080";
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      // redirigir
+      window.location.href = "/dashboard";
+    } catch (err) {
+      console.error(err);
+      alert("Error de autenticación");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const containerClass = `${isDark ? 'dark bg-[#111]' : 'bg-gray-100'} min-h-screen flex items-center justify-center p-4`;
@@ -117,5 +116,3 @@ const handleSubmit = async (e) => {
     </div>
   );
 };
-
-export default Login;
